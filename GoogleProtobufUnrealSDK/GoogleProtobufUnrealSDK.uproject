@@ -7,12 +7,16 @@
 		{
 			"Name": "UnrealSDK",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		},
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"GoogleProtobuf"
+			]
+		}
+	],
+	"Plugins": [
 		{
 			"Name": "GoogleProtobuf",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"Enabled": true
 		}
 	]
 }

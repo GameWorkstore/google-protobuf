@@ -49,3 +49,6 @@ GoogleProtobufUnrealSDK/*.sln
 # ProtobufUpdater
 ProtobufUpdater/win64
 ProtobufUpdater/protobuf-*
+
+# Others
+.vs/

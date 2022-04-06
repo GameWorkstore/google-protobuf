@@ -11,8 +11,9 @@
             "mode": "auto",
             "program": "${fileDirname}",
             "args": [
-                "${workspaceFolder}\\..\\Proto\\",
-                "${workspaceFolder}\\..\\Source\\UnrealSDK\\",
+                "-src","${workspaceFolder}\\..\\Proto\\",
+                "-dst","${workspaceFolder}\\..\\Plugins\\GoogleProtobuf\\Source\\GoogleProtobuf\\",
+                "-public","true"
             ]
         }
     ]

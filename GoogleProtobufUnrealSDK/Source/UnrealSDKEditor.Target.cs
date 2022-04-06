@@ -9,6 +9,6 @@ public class UnrealSDKEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "UnrealSDK" } );
+		ExtraModuleNames.AddRange(new string[] { "UnrealSDK" });
 	}
 }
