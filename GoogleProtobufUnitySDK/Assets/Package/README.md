@@ -1,10 +1,7 @@
-# Google Protobuf for Unity and Unreal
+# Google Protobuf C# Library for Unity
 
-[Google Protobuf for Unity](https://github.com/GameWorkstore/google-protobuf-unity)!
+Unity NPM version of Google Protobuf! This repository applies the same license terms of the original version.
 
-[Google Protobuf for Unreal](https://github.com/GameWorkstor/google-protobuf)
-
-This repository applies the same license terms of the original version.
 Original repo: [protocolbuffers](https://github.com/protocolbuffers/protobuf) 
 
 # Current Version
@@ -22,18 +19,12 @@ To do this:
 
 # How to install
 
-## Unity
-
 At package.json, add these line of code:
 > "com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity#3.15.2005"
 
 And wait for unity to download and compile the package.
 
 for update package for a newer version, update end of line from 3.15.2005 to any released version on Releases.
-
-## Unreal
-
-In Progress
 
 # Installing Protoc
 

@@ -1,0 +1,19 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+option go_package = "com.example.package;main";
+package main;
+
+message ARequest
+{
+   string RequestValue = 1;
+}
+
+message AResponse
+{
+   string ResponseValue = 1;
+}
+
+service AService
+{
+   rpc MyEndpoint(ARequest) returns (AResponse) {}
+}
