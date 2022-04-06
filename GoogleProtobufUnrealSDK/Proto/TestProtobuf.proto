@@ -1,0 +1,13 @@
+syntax = "proto3";
+option optimize_for = LITE_RUNTIME;
+option go_package = "example.com;main";
+package main;
+
+message NewMessege
+{
+   string OneString = 1;
+   int32 OneInt = 2;
+   repeated bool Bools = 3;
+}
+
+

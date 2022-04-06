@@ -45,3 +45,7 @@ GoogleProtobufUnrealSDK/Saved/
 GoogleProtobufUnrealSDK/DerivedDataCache/
 GoogleProtobufUnrealSDK/Plugins/GoogleProtobuf/Intermediate/
 GoogleProtobufUnrealSDK/*.sln
+
+# ProtobufUpdater
+ProtobufUpdater/win64
+ProtobufUpdater/protobuf-*
