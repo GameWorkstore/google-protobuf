@@ -13,5 +13,5 @@ UCLASS()
 class UNREALSDK_API AUnrealSDKGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };
