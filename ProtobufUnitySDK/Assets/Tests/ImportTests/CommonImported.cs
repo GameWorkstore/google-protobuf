@@ -24,10 +24,11 @@ namespace Main {
     static CommonImportedReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChVjb21tb25faW1wb3J0ZWQucHJvdG8SBG1haW4iHgoKVXNlc0NvbW1vbhIQ",
-            "CghJbnRSYW5nZRgBIAEoCUIQSANaDHBhY2thZ2U7bWFpbmIGcHJvdG8z"));
+            "ChVjb21tb25faW1wb3J0ZWQucHJvdG8SBG1haW4aDGNvbW1vbi5wcm90byIu",
+            "CgpVc2VzQ29tbW9uEiAKCEludFJhbmdlGAEgASgLMg4ubWFpbi5JbnRSYW5n",
+            "ZUIUSANaEGV4YW1wbGUuY29tO21haW5iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::Main.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Main.UsesCommon), global::Main.UsesCommon.Parser, new[]{ "IntRange" }, null, null, null, null)
           }));
@@ -65,7 +66,7 @@ namespace Main {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public UsesCommon(UsesCommon other) : this() {
-      intRange_ = other.intRange_;
+      intRange_ = other.intRange_ != null ? other.intRange_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -76,12 +77,12 @@ namespace Main {
 
     /// <summary>Field number for the "IntRange" field.</summary>
     public const int IntRangeFieldNumber = 1;
-    private string intRange_ = "";
+    private global::Main.IntRange intRange_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string IntRange {
+    public global::Main.IntRange IntRange {
       get { return intRange_; }
       set {
-        intRange_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        intRange_ = value;
       }
     }
 
@@ -98,14 +99,14 @@ namespace Main {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (IntRange != other.IntRange) return false;
+      if (!object.Equals(IntRange, other.IntRange)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (IntRange.Length != 0) hash ^= IntRange.GetHashCode();
+      if (intRange_ != null) hash ^= IntRange.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -122,9 +123,9 @@ namespace Main {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (IntRange.Length != 0) {
+      if (intRange_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(IntRange);
+        output.WriteMessage(IntRange);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -135,9 +136,9 @@ namespace Main {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (IntRange.Length != 0) {
+      if (intRange_ != null) {
         output.WriteRawTag(10);
-        output.WriteString(IntRange);
+        output.WriteMessage(IntRange);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -148,8 +149,8 @@ namespace Main {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (IntRange.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(IntRange);
+      if (intRange_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(IntRange);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -162,8 +163,11 @@ namespace Main {
       if (other == null) {
         return;
       }
-      if (other.IntRange.Length != 0) {
-        IntRange = other.IntRange;
+      if (other.intRange_ != null) {
+        if (intRange_ == null) {
+          IntRange = new global::Main.IntRange();
+        }
+        IntRange.MergeFrom(other.IntRange);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -180,7 +184,10 @@ namespace Main {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            IntRange = input.ReadString();
+            if (intRange_ == null) {
+              IntRange = new global::Main.IntRange();
+            }
+            input.ReadMessage(IntRange);
             break;
           }
         }
@@ -198,7 +205,10 @@ namespace Main {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            IntRange = input.ReadString();
+            if (intRange_ == null) {
+              IntRange = new global::Main.IntRange();
+            }
+            input.ReadMessage(IntRange);
             break;
           }
         }

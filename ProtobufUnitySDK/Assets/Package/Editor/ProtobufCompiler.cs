@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Google.Protobuf.Config;
+using System;
 
 namespace Google.Protobuf.Editor
 {
@@ -137,7 +138,9 @@ namespace Google.Protobuf.Editor
                 {
                     CompilerFormat = "--csharp_out=\"{0}\"",
                     TargetLocation = config.CSharpCustomPath,
-                    Extension = ".cs"
+                    Extension = ".cs",
+                    ProtoConfig = config,
+                    PostProcessorFunction = null,
                 });
             }
             if (config.GoLangCompilerEnabled)
@@ -146,7 +149,9 @@ namespace Google.Protobuf.Editor
                 {
                     CompilerFormat = "--go_out=paths=source_relative:{0}",
                     TargetLocation = config.GoLangCustomPath,
-                    Extension = ".pb.go"
+                    Extension = ".pb.go",
+                    ProtoConfig = config,
+                    PostProcessorFunction = null,
                 });
             }
 			if (config.PythonCompilerEnabled)
@@ -155,7 +160,9 @@ namespace Google.Protobuf.Editor
                 {
                     CompilerFormat = "--python_out=\"{0}\"",
                     TargetLocation = config.PythonCustomPath,
-                    Extension = ".py"
+                    Extension = ".py",
+                    ProtoConfig = config,
+                    PostProcessorFunction = PythonPostProcessor,
                 });
             }
 
@@ -242,6 +249,12 @@ namespace Google.Protobuf.Editor
                 {
                     Debug.LogError(ProtobufCompilerLog + error);
                     return false;
+                }
+
+                if(config.PostProcessorFunction != null)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(absolutePath);
+                    config.PostProcessorFunction(absoluteOutput, fileName, config.ProtoConfig);
                 }
 
                 if(File.Exists(absoluteOutput))
@@ -338,9 +351,9 @@ namespace Google.Protobuf.Editor
         /// <returns>Relative path or string.Empty if absolutePath is invalid.</returns>
         public static string AbsoluteToRelative(string absolutePath)
         {
-            var fileUri = new System.Uri(absolutePath);
-            var referenceUri = new System.Uri(Application.dataPath);
-            return System.Uri.UnescapeDataString(referenceUri.MakeRelativeUri(fileUri).ToString()).Replace('/', Path.DirectorySeparatorChar);
+            var fileUri = new Uri(absolutePath);
+            var referenceUri = new Uri(Application.dataPath);
+            return Uri.UnescapeDataString(referenceUri.MakeRelativeUri(fileUri).ToString()).Replace('/', Path.DirectorySeparatorChar);
         }
 
         /// <summary>
@@ -356,12 +369,29 @@ namespace Google.Protobuf.Editor
             }
             return Path.Combine(Application.dataPath, relativePath);
         }
+
+        /// <summary>
+        /// Post Process Python Scripts
+        /// </summary>
+        private static void PythonPostProcessor(string absolutePath, string fileWithoutExt, ProtobufConfig config)
+        {
+            if (config.PythonLocalLibrary)
+            {
+                var filePath = Path.Combine(absolutePath,fileWithoutExt+"_pb2.py");
+                var content = File.ReadAllText(filePath);
+                content = content.Replace("from google", "from . google");
+                content = content.Replace("import", "from . import");
+                File.WriteAllText(filePath, content);
+            }
+        }
     }
 }
 
-public struct ProtobufCompilerConfig
+public class ProtobufCompilerConfig
 {
     public string CompilerFormat;
     public string TargetLocation;
     internal string Extension;
+    public ProtobufConfig ProtoConfig;
+    public Action<string, string, ProtobufConfig> PostProcessorFunction = null;
 }

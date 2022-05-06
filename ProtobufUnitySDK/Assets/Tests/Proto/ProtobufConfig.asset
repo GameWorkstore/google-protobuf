@@ -18,4 +18,5 @@ MonoBehaviour:
   GoLangCompilerEnabled: 1
   GoLangCustomPath: Tests/Generated/Go/
   PythonCompilerEnabled: 1
+  PythonLocalLibrary: 1
   PythonCustomPath: Tests/Generated/Python/

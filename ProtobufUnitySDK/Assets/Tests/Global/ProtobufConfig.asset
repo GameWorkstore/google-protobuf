@@ -17,3 +17,6 @@ MonoBehaviour:
   CSharpCustomPath: 
   GoLangCompilerEnabled: 1
   GoLangCustomPath: 
+  PythonCompilerEnabled: 1
+  PythonLocalLibrary: 1
+  PythonCustomPath: 

@@ -33,7 +33,7 @@ ProtobufUnitySDK/*.apk
 ProtobufUnitySDK/*.unitypackage
 ProtobufUnitySDK/crashlytics-build.properties
 ProtobufUnitySDK/.idea
-ProtobufUnitySDK/UserSettings/EditorUserSettings.asset
+ProtobufUnitySDK/UserSettings/
 
 # Unreal
 ProtobufUnrealSDK/.vs/

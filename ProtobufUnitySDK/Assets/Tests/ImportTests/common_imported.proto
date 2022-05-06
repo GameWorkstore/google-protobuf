@@ -1,9 +1,11 @@
 syntax = "proto3";
 option optimize_for = LITE_RUNTIME;
-option go_package = "package;main";
+option go_package = "example.com;main";
 package main;
+
+import "common.proto";
 
 message UsesCommon
 {
-   string IntRange = 1;
+   IntRange IntRange = 1;
 }

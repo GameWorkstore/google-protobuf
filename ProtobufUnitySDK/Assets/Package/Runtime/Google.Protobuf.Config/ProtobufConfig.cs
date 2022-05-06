@@ -19,6 +19,8 @@ namespace Google.Protobuf.Config
 
         [Header("Python#")]
         public bool PythonCompilerEnabled = true;
+        [Tooltip("Make protobuf local inside python exportations. [ 'from google' --> 'from . google'] and [ 'import' --> 'from . import']")]
+        public bool PythonLocalLibrary = false;
         [Tooltip("Leave custom paths empty if it should compile right next to original.")]
         public string PythonCustomPath = string.Empty;
     }
