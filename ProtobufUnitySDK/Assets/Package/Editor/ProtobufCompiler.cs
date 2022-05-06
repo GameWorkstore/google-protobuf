@@ -378,10 +378,21 @@ namespace Google.Protobuf.Editor
             if (config.PythonLocalLibrary)
             {
                 var filePath = Path.Combine(absolutePath,fileWithoutExt+"_pb2.py");
-                var content = File.ReadAllText(filePath);
-                content = content.Replace("from google", "from . google");
-                content = content.Replace("import", "from . import");
-                File.WriteAllText(filePath, content);
+                var content = File.ReadAllText(filePath).Split('\n');
+                var sb = new System.Text.StringBuilder();
+                for (int i = 0; i < content.Length; i++)
+                {
+                    if (content[i].StartsWith("import"))
+                    {
+                        content[i] = "from . " + content[i];
+                    }
+                    else if (content[i].StartsWith("from google"))
+                    {
+                        content[i] = "from . " + content[i].Substring(5,content[i].Length-5);
+                    }
+                    sb.AppendLine(content[i]);
+                }
+                File.WriteAllText(filePath, sb.ToString());
             }
         }
     }
