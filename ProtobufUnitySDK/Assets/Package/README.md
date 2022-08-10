@@ -19,12 +19,18 @@ To do this:
 
 # How to install
 
+## Unity
+
 At package.json, add these line of code:
-> "com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity#3.15.2005"
+> "com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity#3.15.2011"
 
 And wait for unity to download and compile the package.
 
-for update package for a newer version, update end of line from 3.15.2005 to any released version on Releases.
+for update package for a newer version, update end of line from 3.15.2011 to any released version on Releases.
+
+## Unreal
+
+In Progress
 
 # Installing Protoc
 
@@ -42,7 +48,12 @@ Install protoc-gen-go using brew
 
 > brew install protoc-gen-go
 
-Brew must simlink both binaries on /usr/local/bin folder, check if any error appears while compiling.
+While the package contains solutions to fix PATH by itself,
+if you run into problems, follow this advice:
+
+Brew must simlink both protoc and protoc-gen-go binaries into /usr/local/bin folder.
+Use the button on preferences to debug your PATH variable and see which folders are available.
+Fixing this should get rid of any binary not found errors appearing while compiling.
 
 # Configuring
 
