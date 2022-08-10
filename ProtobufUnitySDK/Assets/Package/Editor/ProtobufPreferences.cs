@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Google.Protobuf.Editor
@@ -60,6 +61,12 @@ namespace Google.Protobuf.Editor
             if (GUILayout.Button(new GUIContent("Force Compilation")))
             {
                 ProtobufCompiler.ForceRecompile();
+            }
+
+            if (GUILayout.Button(new GUIContent("Debug PATH")))
+            {
+                var path = Environment.GetEnvironmentVariable("PATH");
+                Debug.Log($"PATH value: {path}");
             }
 
             EditorGUI.EndDisabledGroup();

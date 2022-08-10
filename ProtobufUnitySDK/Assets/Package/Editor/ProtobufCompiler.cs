@@ -64,12 +64,33 @@ namespace Google.Protobuf.Editor
             }
         }
 
+        private static string ProtocPathCache = string.Empty;
         private static string ProtocPath
         {
             get
             {
 #if UNITY_EDITOR_OSX
-                return "/usr/local/bin/protoc";
+                if (string.IsNullOrEmpty(ProtocPathCache))
+                {
+                    const string protoc_usr = "/usr/local/bin/protoc";
+                    const string protoc_brew = "/opt/homebrew/bin/protoc";
+                    if (File.Exists(protoc_usr))
+                    {
+                        ProtocPathCache = protoc_usr;
+                    }
+                    else if (File.Exists(protoc_brew))
+                    {
+                        // setup path for brew:
+                        var path = Environment.GetEnvironmentVariable("PATH");
+                        if (!path.Contains("/opt/homebrew/bin"))
+                        {
+                            path += ":/opt/homebrew/bin";
+                            Environment.SetEnvironmentVariable("PATH", path);
+                        }
+                        ProtocPathCache = protoc_brew;
+                    }
+                }
+                return ProtocPathCache;
 #else
                 return Path.Combine(BinaryPath,"protoc");
 #endif
