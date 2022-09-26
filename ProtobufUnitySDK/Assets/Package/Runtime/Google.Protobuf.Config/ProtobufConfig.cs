@@ -23,5 +23,10 @@ namespace Google.Protobuf.Config
         public bool PythonLocalLibrary = false;
         [Tooltip("Leave custom paths empty if it should compile right next to original.")]
         public string PythonCustomPath = string.Empty;
+
+        [Header("Cpp#")]
+        public bool CppCompilerEnabled = true;
+        [Tooltip("Leave custom paths empty if it should compile right next to original.")]
+        public string CppCustomPath = string.Empty;
     }
 }

@@ -92,7 +92,7 @@ namespace Google.Protobuf.Editor
                 }
                 return ProtocPathCache;
 #else
-                return Path.Combine(BinaryPath,"protoc");
+                return Path.Combine(BinaryPath, "protoc");
 #endif
             }
         }
@@ -105,14 +105,14 @@ namespace Google.Protobuf.Editor
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
             if (!UnityEditorInternal.InternalEditorUtility.isHumanControllingUs) return;
-            
+
             var anyChanges = false;
             foreach (string import in importedAssets)
             {
-                if(!import.EndsWith(".proto")) continue;
+                if (!import.EndsWith(".proto")) continue;
                 var absolutePath = RelativeToAbsolute(import);
                 var config = ProtobufCompiler.GetProtobufConfig(absolutePath);
-                if(config == null)
+                if (config == null)
                 {
                     config = ProtobufCompiler.GetProtobufConfig();
                 }
@@ -131,21 +131,21 @@ namespace Google.Protobuf.Editor
         {
             if (ProtobufPreferences.LogDebug)
             {
-                UnityEngine.Debug.Log(ProtobufCompilerLog+"Compiling all .proto files in the project...");
+                UnityEngine.Debug.Log(ProtobufCompilerLog + "Compiling all .proto files in the project...");
             }
 
             foreach (string protoFile in AllProtos)
             {
                 if (ProtobufPreferences.LogDebug)
                 {
-                    UnityEngine.Debug.Log(ProtobufCompilerLog+"Compiling " + protoFile);
+                    UnityEngine.Debug.Log(ProtobufCompilerLog + "Compiling " + protoFile);
                 }
                 var config = ProtobufCompiler.GetProtobufConfig(protoFile);
-                if(config == null)
+                if (config == null)
                 {
                     config = ProtobufCompiler.GetProtobufConfig();
                 }
-                Compile(protoFile,config);
+                Compile(protoFile, config);
             }
             AssetDatabase.Refresh();
         }
@@ -159,7 +159,7 @@ namespace Google.Protobuf.Editor
                 {
                     CompilerFormat = "--csharp_out=\"{0}\"",
                     TargetLocation = config.CSharpCustomPath,
-                    Extension = ".cs",
+                    Extensions = new string[] { ".cs" },
                     ProtoConfig = config,
                     PostProcessorFunction = null,
                 });
@@ -170,20 +170,31 @@ namespace Google.Protobuf.Editor
                 {
                     CompilerFormat = "--go_out=paths=source_relative:{0}",
                     TargetLocation = config.GoLangCustomPath,
-                    Extension = ".pb.go",
+                    Extensions = new string[] { ".pb.go" },
                     ProtoConfig = config,
                     PostProcessorFunction = null,
                 });
             }
-			if (config.PythonCompilerEnabled)
-			{
+            if (config.PythonCompilerEnabled)
+            {
                 configs.Add(new ProtobufCompilerConfig()
                 {
                     CompilerFormat = "--python_out=\"{0}\"",
                     TargetLocation = config.PythonCustomPath,
-                    Extension = ".py",
+                    Extensions = new string[] { ".py" },
                     ProtoConfig = config,
                     PostProcessorFunction = PythonPostProcessor,
+                });
+            }
+            if (config.CppCompilerEnabled)
+            {
+                configs.Add(new ProtobufCompilerConfig()
+                {
+                    CompilerFormat = "--cpp_out=\"{0}\"",
+                    TargetLocation = config.CppCustomPath,
+                    Extensions = new string[] { ".pb.h", ".pb.cc" },
+                    ProtoConfig = config,
+                    PostProcessorFunction = null,
                 });
             }
 
@@ -272,13 +283,13 @@ namespace Google.Protobuf.Editor
                     return false;
                 }
 
-                if(config.PostProcessorFunction != null)
+                if (config.PostProcessorFunction != null)
                 {
                     var fileName = Path.GetFileNameWithoutExtension(absolutePath);
                     config.PostProcessorFunction(absoluteOutput, fileName, config.ProtoConfig);
                 }
 
-                if(File.Exists(absoluteOutput))
+                if (File.Exists(absoluteOutput))
                 {
                     AssetDatabase.ImportAsset(AbsoluteToRelative(absoluteOutput));
                 }
@@ -398,7 +409,7 @@ namespace Google.Protobuf.Editor
         {
             if (config.PythonLocalLibrary)
             {
-                var filePath = Path.Combine(absolutePath,fileWithoutExt+"_pb2.py");
+                var filePath = Path.Combine(absolutePath, fileWithoutExt + "_pb2.py");
                 var content = File.ReadAllText(filePath).Split('\n');
                 var sb = new System.Text.StringBuilder();
                 for (int i = 0; i < content.Length; i++)
@@ -409,7 +420,7 @@ namespace Google.Protobuf.Editor
                     }
                     else if (content[i].StartsWith("from google"))
                     {
-                        content[i] = "from . " + content[i].Substring(5,content[i].Length-5);
+                        content[i] = "from . " + content[i].Substring(5, content[i].Length - 5);
                     }
                     sb.AppendLine(content[i]);
                 }
@@ -423,7 +434,7 @@ public class ProtobufCompilerConfig
 {
     public string CompilerFormat;
     public string TargetLocation;
-    internal string Extension;
+    internal string[] Extensions = new string[0];
     public ProtobufConfig ProtoConfig;
     public Action<string, string, ProtobufConfig> PostProcessorFunction = null;
 }
