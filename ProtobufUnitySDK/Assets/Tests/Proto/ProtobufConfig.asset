@@ -20,3 +20,5 @@ MonoBehaviour:
   PythonCompilerEnabled: 1
   PythonLocalLibrary: 1
   PythonCustomPath: Tests/Generated/Python/
+  CppCompilerEnabled: 1
+  CppCustomPath: Tests/Generated/Cpp/
