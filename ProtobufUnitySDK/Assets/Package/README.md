@@ -22,11 +22,11 @@ To do this:
 ## Unity
 
 At package.json, add these line of code:
-> "com.gameworkstore.googleprotobufunity": "git://github.com/GameWorkstore/google-protobuf-unity#3.15.2011"
+> "com.gameworkstore.googleprotobufunity": "https://github.com/GameWorkstore/google-protobuf-unity#3.15.2012"
 
 And wait for unity to download and compile the package.
 
-for update package for a newer version, update end of line from 3.15.2011 to any released version on Releases.
+for update package for a newer version, update end of line from 3.15.2012 to any released version on Releases.
 
 ## Unreal
 
