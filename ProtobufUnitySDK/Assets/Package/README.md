@@ -22,7 +22,7 @@ To do this:
 ## Unity
 
 At package.json, add these line of code:
-> "com.gameworkstore.googleprotobufunity": "https://github.com/GameWorkstore/google-protobuf-unity#3.15.2012"
+> "com.gameworkstore.googleprotobufunity": "https://github.com/GameWorkstore/google-protobuf-unity.git#3.15.2012"
 
 And wait for unity to download and compile the package.
 
